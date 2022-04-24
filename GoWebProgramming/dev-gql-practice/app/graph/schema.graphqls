@@ -1,0 +1,64 @@
+scalar Time
+
+type Todo {
+  id: Int!
+  title: String!
+  notes: String!
+  completed: Boolean!
+  due: Time
+}
+
+input CreateTodoInput {
+  title: String!
+  notes: String
+  completed: Boolean
+  due: Time
+}
+
+input UpdateTodoInput {
+  id: Int!
+  title: String
+  notes: String
+  completed: Boolean
+  due: Time
+}
+
+# mutation
+type Mutation {
+  createTodo(input: CreateTodoInput!): Todo!
+  updateTodo(input: UpdateTodoInput!): Todo!
+}
+
+# pagenation
+type Query {
+  todos(input: TodosInput!, orderBy: TodoOrderFields!,  page: PaginationInput!): TodoConnection!
+}
+
+input TodosInput {
+  completed: Boolean
+}
+
+enum TodoOrderFields {
+  LATEST
+  DUE
+}
+
+input PaginationInput {
+  first: Int
+  afterCursor: Int
+}
+
+type TodoConnection {
+  pageInfo: PageInfo!
+  edges: [TodoEdge]!
+}
+
+type PageInfo {
+  endCursor: Int!
+  hasNextPage: Boolean!
+}
+
+type TodoEdge {
+  cursor: Int!
+  node: Todo!
+}

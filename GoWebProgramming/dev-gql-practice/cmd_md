@@ -1,0 +1,13 @@
+```
+mutation createTodo {
+  createTodo (input: {
+    title :"g"
+    notes : "g"
+    # due : "2022-05-05T15:05:00Z"
+  }) {
+    title
+    notes
+    due
+  }
+}
+```

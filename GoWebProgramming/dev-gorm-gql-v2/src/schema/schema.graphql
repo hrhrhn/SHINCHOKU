@@ -1,0 +1,42 @@
+# https://gqlgen.com/getting-started/
+
+type Todo {
+  id: ID!
+  content: String!
+  done: Boolean!
+  user: User!
+}
+
+type User {
+  id: ID!
+  name: String!
+  todos: [Todo!]!
+}
+
+type Query {
+  # TODOの全情報を取得
+  todos: [Todo!]!
+  # 1TODO情報の取得
+  todo(id: ID!): Todo!
+
+  # 全ユーザの情報を取得
+  users: [User!]!
+  # １ユーザの情報を取得
+  user(id: ID!): User!
+}
+
+input NewTodo {
+  content: String!
+  userId: Int!
+}
+
+input NewUser {
+  name: String!
+}
+
+type Mutation {
+  # TODO情報を登録
+  createTodo(input: NewTodo!): ID!
+  # ユーザ情報を登録
+  createUser(input: NewUser!): ID!
+}
